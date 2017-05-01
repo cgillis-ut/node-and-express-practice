@@ -1,9 +1,10 @@
 var express = require('express'); 
 var app = express(); 
-
+var fortune = require("./mod_library/fortune.js")
 // set up handlebars view engine 
 var handlebars = require('express-handlebars')
 	.create({ defaultLayout:'main' }); 
+
 
 
 app.engine('handlebars', handlebars.engine); 
@@ -13,13 +14,7 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(express.static(__dirname + '/public'));
 
-var fortuneCookies = [
-	"Conquer your fears or they will conquer you.",
-	"Rivers need springs.",
-	"Do not fear what you don't know.",
-	"You will have a pleasant surprise.",
-	"Whenever possible, keep it simple.",
-];
+
 
 //create routes for html pgs
 app.get('/', function(req, res){
@@ -27,9 +22,8 @@ app.get('/', function(req, res){
 });
 
 app.get('/about', function(req, res){
-	var randomFortune = 
-		fortuneCookies[Math.floor(Math.random() * fortuneCookies.length)];
-	res.render("about", {fortune: randomFortune}
+	
+	res.render("about", {fortune: fortune}
 		);
 
 }); 
